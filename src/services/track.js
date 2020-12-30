@@ -4,12 +4,17 @@ import platziMusicService from './platzi-music.js'
 
 const trackService = {}
 
-trackService.search = function(q) {
+trackService.search = function(q, parametros) {
     
     const type = 'track';
 
     return platziMusicService.get('/search/anime', {
-        params: { q: q }
+        params: {
+            q: q,
+            order_by: parametros.order_by,
+            order_by2: parametros.order_by2,
+            limit: parametros.limit
+        }
     })
     
     .then(res => {

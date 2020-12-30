@@ -1,7 +1,14 @@
 <template lang="pug">
   
   #app
+    pm-header
+
+    pm-notification(v-show="showNotification")
+      p(slot="notif") No se encontraron resultados
+
     section.section
+      pm-loader(v-show="isLoading")
+
       nav.nav.has-shadow
         .container
           input.input.is-large(type="text" placeholder="Buscar animes" v-model="searchQuery")
@@ -10,26 +17,55 @@
           p
             small {{ searchMessage }}
             
-        .container.results
-          .columns
-            .column(v-for="t in tracks") 
-              div.titulo {{ t.title }}
-              img.imagen(v-bind:src='t.image_url')
-              
+        .container.results(v-show="!isLoading")
+          .columns.is-multiline
+            .column.is-one-quarter(v-for="t in tracks") 
+              //- div.titulo {{ t.title }}
+              //- div.imagen
+              //-   img(v-bind:src='t.image_url')
+              pm-track(
+                v-bind:track="t"
+                v-bind:class= "{ 'is-active': t === selectedAnime }"
+                v-on:select="setSelectedAnime"
+              )
+    pm-footer
 </template>
 
 <script>
 
 // Servicios
-import trackService from './services/track.js'
+import trackService from '@/services/track.js'
+
+// Layout
+import PmHeader from '@/components/layout/Header.vue'
+import PmFooter from '@/components/layout/Footer.vue'
+
+import PmTrack from '@/components/Track.vue'
+import PmLoader from '@/components/shared/Loader.vue'
+import PmNotification from '@/components/shared/Notification.vue'
 
 export default {
   name: 'app',
   data () {
     return {
       searchQuery: '',
-      tracks: []
+      parametros: {
+        order_by: 'title',
+        order_by2: 'episodes',
+        limit: 30,
+      },
+      tracks: [],
+      isLoading: false,
+      showNotification: false,
+      selectedAnime: ''
     }
+  },
+  components: {
+    PmHeader,
+    PmFooter,
+    PmTrack,
+    PmLoader,
+    PmNotification
   },
   computed: {
     searchMessage() {
@@ -38,8 +74,15 @@ export default {
   },
   watch: {
     searchQuery() {
-      trackService.search(this.searchQuery).then(res => {
-          this.tracks = res;
+      // Visualizo el loader
+      this.isLoading = true;
+
+      // Ejecuto la busqueda
+      trackService.search(this.searchQuery, this.parametros).then(respuesta => {
+          this.tracks = respuesta;
+          
+          // Oculto el loader
+          this.isLoading = false;
       })
     }
   },
@@ -47,7 +90,14 @@ export default {
     search() {
       // Llamamos al método del servicio pasando el término a buscar
       
+    },
+    setSelectedAnime(id) {
+      this.selectedAnime = id;
     }
+  },
+
+  created: function() {
+    console.log('Componente creado')
   }
 }
 </script>
@@ -59,46 +109,16 @@ body {
   height: 100%;
 }
 
-.columns {
-  display: flex;
-  flex-wrap: wrap;
-
-  .column {
-      display: block;
-      flex-basis: revert;
-      flex-grow: 1;
-      flex-shrink: 0;
-      padding: 0.75rem;
-      width: 33%;
-      text-align: center;
-      
-      .titulo {
-        font-size: 20px;
-      }
-
-      img {
-        width: 65%;
-        height: 85%;
-        object-fit: cover;
-        margin-top: 1em;
-      }
-  }
+.is-active {
+  border: 3px solid green;
 }
 
 @media screen and (max-width: 480px) {
-  .column {
-    width: 51%;
-  }
+
 }
 
 @media screen and (max-width: 768px) {
-  .column {
-    width: 40%;
 
-    .titulo {
-      font-size: 1.3em;
-    }
-  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -108,4 +128,5 @@ body {
 @media screen and (max-width: 1407px) {
   
 }
+
 </style>
