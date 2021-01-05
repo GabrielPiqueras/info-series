@@ -1,5 +1,5 @@
 <template lang="pug">
-    .card
+    .card(v-if="track")
         .tipo(v-if="track.type == 'TV'") Anime
         .tipo(v-else-if="track.type == 'Movie'") Película
         .tipo(v-else-if="track.type == 'Special'") Especial
@@ -20,7 +20,8 @@
                         .level-left
                             a.level-item
                                 span.icon.is-small(v-on:click="selectAnime") ▶
-
+                            a.level-item(v-on:click="goToAnime(track.mal_id)") Ver más
+                            
 </template>
 
 <script>
@@ -32,6 +33,14 @@ export default {
     methods: {
         selectAnime() {
             this.$emit('select', this.track);
+            
+            /* Emitimos el evento 'set-anime' desde la nueva instancia de Vue dentro de $bus */
+            /* Estaremos emitiendo con $emit un evento a nuestro plugin 'EventBus',
+               El cual recibiremos con $on en el otro componente */
+            this.$bus.$emit('set-anime', this.track)
+        },
+        goToAnime(id) {
+            this.$router.push({ name: 'track', params: { id } })
         }
     }
 }

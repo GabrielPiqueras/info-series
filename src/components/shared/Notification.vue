@@ -1,7 +1,7 @@
 <template lang="pug">
     .container
      .columns
-      .column.is-4
+      .column.is-5.is-offset-4
        .notification.is-danger
         slot(name="notif") Algo anduvo mal
 </template>
@@ -12,6 +12,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .notification {
+        margin: 10px;
+    }
 </style>

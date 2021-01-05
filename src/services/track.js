@@ -22,5 +22,12 @@ trackService.search = function(q, parametros) {
     })
 }
 
+trackService.details = function(id) {
+    return platziMusicService.get(`/anime/${id}`)
+    .then(res => {
+        return res.data
+    })
+}
+
 /* Exportamos el servicio  */
 export default trackService

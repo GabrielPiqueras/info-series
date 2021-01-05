@@ -2,110 +2,26 @@
   
   #app
     pm-header
-
-    pm-notification(v-show="showNotification")
-      p(slot="notif") No se encontraron resultados
-
-    section.section
-      pm-loader(v-show="isLoading")
-
-      nav.nav.has-shadow
-        .container
-          input.input.is-large(type="text" placeholder="Buscar animes" v-model="searchQuery")
-          a.button.is-info.is-large.mt-4(v-on:click="search") Buscar
-          a.button.is-danger.is-large.mt-4.ml-3 &times;
-          p
-            small {{ searchMessage }}
-            
-        .container.results(v-show="!isLoading")
-          .columns.is-multiline
-            .column.is-one-quarter(v-for="t in tracks") 
-              //- div.titulo {{ t.title }}
-              //- div.imagen
-              //-   img(v-bind:src='t.image_url')
-              pm-track(
-                v-bind:track="t"
-                v-bind:class= "{ 'is-active': t === selectedAnime }"
-                v-on:select="setSelectedAnime"
-              )
+    router-view
     pm-footer
 </template>
 
 <script>
 
-// Servicios
-import trackService from '@/services/track.js'
-
 // Layout
 import PmHeader from '@/components/layout/Header.vue'
 import PmFooter from '@/components/layout/Footer.vue'
 
-import PmTrack from '@/components/Track.vue'
-import PmLoader from '@/components/shared/Loader.vue'
-import PmNotification from '@/components/shared/Notification.vue'
-
 export default {
   name: 'app',
-  data () {
-    return {
-      searchQuery: '',
-      parametros: {
-        order_by: 'title',
-        order_by2: 'episodes',
-        limit: 30,
-      },
-      tracks: [],
-      isLoading: false,
-      showNotification: false,
-      selectedAnime: ''
-    }
-  },
-  components: {
-    PmHeader,
-    PmFooter,
-    PmTrack,
-    PmLoader,
-    PmNotification
-  },
-  computed: {
-    searchMessage() {
-      return `Encontrados: ${this.tracks.length}`;
-    }
-  },
-  watch: {
-    searchQuery() {
-      // Visualizo el loader
-      this.isLoading = true;
 
-      // Ejecuto la busqueda
-      trackService.search(this.searchQuery, this.parametros).then(respuesta => {
-          this.tracks = respuesta;
-          
-          // Oculto el loader
-          this.isLoading = false;
-      })
-    }
-  },
-  methods: {
-    search() {
-      // Llamamos al método del servicio pasando el término a buscar
-      
-    },
-    setSelectedAnime(id) {
-      this.selectedAnime = id;
-    }
-  },
-
-  created: function() {
-    console.log('Componente creado')
-  }
+  components: { PmHeader, PmFooter }
 }
 </script>
 
 <style lang="scss">
 
 body {
-  background: rgb(151, 151, 151);
   height: 100%;
 }
 
