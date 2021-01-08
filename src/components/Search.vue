@@ -10,7 +10,7 @@
 
       nav.nav.has-shadow
         .container
-          input.input.is-large(type="text" placeholder="Buscar animes" ref="buscador" v-model="searchQuery")
+          input.input.is-large(type="text" placeholder="Buscar series" ref="buscador" v-model="searchQuery" @keyup.enter="search")
           a.button.is-info.is-large.mt-4(v-on:click="search") Buscar
           a.button.is-danger.is-large.mt-4.ml-3 &times;
           p 
@@ -18,24 +18,23 @@
             
         .container.results(v-show="!isLoading")
           .columns.is-multiline
-            .column.is-one-quarter(v-for="t in tracks") 
-              //- div.titulo {{ t.title }}
-              //- div.imagen
-              //-   img(v-bind:src='t.image_url')
-              pm-track(
-                v-bind:track="t"
-                v-bind:class= "{ 'is-active': t === selectedAnime }"
-                v-on:select="setSelectedAnime"
+            .column.is-one-quarter(v-for="s in series")
+              pm-serie(
+                v-blur="s.rated"
+                v-bind:serie="s"
+                v-bind:class= "{ 'is-active': t === selectedSerie }"
+                v-on:select="setSelectedSerie"
               )
+              
 </template>
 
 <script>
 
 // Servicios
-import trackService from '@/services/track.js'
+import serieService from '@/services/serie.js'
 
 // Componentes
-import PmTrack from '@/components/Track.vue'
+import PmSerie from '@/components/Serie.vue'
 import PmLoader from '@/components/shared/Loader.vue'
 import PmNotification from '@/components/shared/Notification.vue'
 
@@ -49,35 +48,35 @@ export default {
         order_by2: 'episodes',
         limit: 30,
       },
-      tracks: [],
-      selectedAnime: '',
+      series: [],
+      selectedSerie: '',
       isLoading: false,
       showNotification: false
     }
   },
   components: {
-    PmTrack,
+    PmSerie,
     PmLoader,
     PmNotification
   },
   computed: {
     searchMessage() {
-      return `Encontrados: ${this.tracks.length}`;
+      return `Encontrados: ${this.series.length}`;
     }
   },
   watch: {
-    searchQuery() {
-      // Visualizo el loader
-      this.isLoading = true;
+    // searchQuery() {
+    //   // Visualizo el loader
+    //   this.isLoading = true;
 
-      // Ejecuto la busqueda
-      trackService.search(this.searchQuery, this.parametros).then(respuesta => {
-          this.tracks = respuesta;
+    //   // Ejecuto la busqueda
+    //   serieService.search(this.searchQuery, this.parametros).then(respuesta => {
+    //       this.series = respuesta;
           
-          // Oculto el loader
-          this.isLoading = false;
-      })
-    },
+    //       // Oculto el loader
+    //       this.isLoading = false;
+    //   })
+    // },
     showNotification() {
       if(this.showNotification) {
         setTimeout(() => {
@@ -88,11 +87,20 @@ export default {
   },
   methods: {
     search() {
-      // Llamamos al método del servicio pasando el término a buscar
-      
+      // Visualizo el loader
+      this.isLoading = true;
+
+      // Ejecuto la busqueda llamando al método del servicio pasando el término y parámetros
+      serieService.search(this.searchQuery, this.parametros).then(respuesta => {
+          this.series = respuesta;
+
+      // Oculto el loader
+          this.isLoading = false;
+      })
+    
     },
-    setSelectedAnime(anime) {
-      this.selectedAnime = anime;
+    setSelectedSerie(serie) {
+      this.selectedSerie = serie;
     }
   },
 

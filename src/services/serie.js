@@ -2,11 +2,11 @@
 
 import platziMusicService from './platzi-music.js'
 
-const trackService = {}
+const serieService = {}
 
-trackService.search = function(q, parametros) {
+serieService.search = function(q, parametros) {
     
-    const type = 'track';
+    const type = 'serie';
 
     return platziMusicService.get('/search/anime', {
         params: {
@@ -22,7 +22,7 @@ trackService.search = function(q, parametros) {
     })
 }
 
-trackService.details = function(id) {
+serieService.details = function(id) {
     return platziMusicService.get(`/anime/${id}`)
     .then(res => {
         return res.data
@@ -30,4 +30,4 @@ trackService.details = function(id) {
 }
 
 /* Exportamos el servicio  */
-export default trackService
+export default serieService

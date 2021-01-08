@@ -1,15 +1,15 @@
 <template lang="pug">
 
-  //- Si el objeto track no está vacío, mostramos el contenido
-  .content(v-if="Object.keys(track).length != 0")
+  //- Si el objeto serie no está vacío, mostramos el contenido
+  .content(v-if="Object.keys(serie).length != 0")
 
     p.is-128x128
-        img(v-bind:src="track.image_url")
+        img(v-bind:src="serie.image_url")
     p
-        strong {{ track.title }}
-        small {{ track.sinopsis }}
+        strong {{ serie.title }}
+        small {{ serie.sinopsis }}
     p
-        a(v-bind:href="track.url" target="_blank") Más información
+        a(v-bind:href="serie.url" target="_blank") Más información
     audio(controls)
 
 </template>
@@ -18,12 +18,12 @@
 export default {
     data() {
         return {
-            track: {}
+            serie: {}
         }
     },
     created() {
         this.$bus.$on('set-anime', (anime) => {
-            this.track = anime;
+            this.serie = anime;
         })
     }
 }

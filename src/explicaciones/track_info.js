@@ -3,13 +3,13 @@
 /* Importo el servicio de PlatziMusic */
 import platziMusicService from './platzi-music.js'
 
-const trackService = {}
+const serieService = {}
 
-/* Para que trackService pueda interactuar con la API de PlatziMusic, creamos este método que buscará las canciones.
+/* Para que serieService pueda interactuar con la API de PlatziMusic, creamos este método que buscará las canciones.
 Recibirá por parámetro 'q' que es un estándar para referirnos a 'query' en búsquedas */
-trackService.search = function(q) {
+serieService.search = function(q) {
     /* Para obtener distintos tipos de cosas, en este caso serán canciones */
-    const type = 'track';
+    const type = 'serie';
 
     /* Como platziMusicService es una instancia de la librería 'trae', podemos usar sus métodos, en este caso get() para obtener los resultados mediante una petición HTTP */
     /* PARÁMETRO 1: get() recibe la url a buscar, en nuestro caso como ya tenemos la API en baseUrl solo debemos poner las partes específicas, como '/search'
@@ -34,4 +34,4 @@ trackService.search = function(q) {
 }
 
 /* Exportamos el servicio para poder ser usado desde fuera */
-export default trackService
+export default serieService

@@ -1,29 +1,29 @@
 <template lang="pug">
 
     main
-        h1.title.is-2 {{ track.title }}
-        pm-track(v-bind:track="track")
+        h1.title.is-2 {{ serie.title }}
+        pm-serie(v-bind:serie="serie")
         
     //- h1 Anime - Información
 
-    //- h2 {{ track.title }}
-    //- img(v-bind:src="track.image_url")
-    //- p {{ track.synopsis }}
+    //- h2 {{ serie.title }}
+    //- img(v-bind:src="serie.image_url")
+    //- p {{ serie.synopsis }}
 </template>
 
 <script>
 
-import PmTrack from '@/components/Track.vue'
-import trackService from '@/services/track.js'
+import PmSerie from '@/components/Serie.vue'
+import serieService from '@/services/serie.js'
 
 export default {
     data() {
         return {
-            track: {}
+            serie: {}
         }
     },
     components: {
-        PmTrack
+        PmSerie
     },
     methods: {
 
@@ -32,8 +32,8 @@ export default {
     created() {
         const id = this.$route.params.id;
 
-        trackService.details(id).then(anime => {
-            this.track = anime;
+        serieService.details(id).then(anime => {
+            this.serie = anime;
         })
     }
 }

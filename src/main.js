@@ -1,16 +1,30 @@
 import Vue from 'vue'
 import App from '@/App.vue'
 
+// Router
 import VueRouter from 'vue-router'
 import routes from '@/routes.js'
 
-/* Para instalar nuestro plugin lo importamos y con Vue.use() le decimos que lo vamos a utilizar */
+// Plugins
 import EventBus from '@/plugins/event-bus.js'
+
+// Filtros
+import MsToMm from '@/filters/ms-to-mm.js'
+import ConvertDolarEuros from '@/filters/dolar-euros.js'
+
+// Directivas
+import blur from '@/directives/blur.js'
 
 Vue.use(EventBus)
 Vue.use(VueRouter)
+Vue.use(MsToMm)
+Vue.use(ConvertDolarEuros)
+Vue.use(blur)
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({
+  routes,
+  mode: "history"
+})
 
 new Vue({
   el: '#app',
