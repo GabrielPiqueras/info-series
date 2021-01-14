@@ -1,6 +1,6 @@
-/* Servicio que interactuará con PlatziMusic, buscará las canciones y obtendrá información sobre ellas. */
+/* Servicio que interactuará con InfoSeries, buscará las canciones y obtendrá información sobre ellas. */
 
-import platziMusicService from './platzi-music.js'
+import infoSeriesService from './info-series.js'
 
 const serieService = {}
 
@@ -8,7 +8,7 @@ serieService.search = function(q, parametros) {
     
     const type = 'serie';
 
-    return platziMusicService.get('/search/anime', {
+    return infoSeriesService.get('/search/anime', {
         params: {
             q: q,
             order_by: parametros.order_by,
@@ -23,7 +23,7 @@ serieService.search = function(q, parametros) {
 }
 
 serieService.details = function(id) {
-    return platziMusicService.get(`/anime/${id}`)
+    return infoSeriesService.get(`/anime/${id}`)
     .then(res => {
         return res.data
     })

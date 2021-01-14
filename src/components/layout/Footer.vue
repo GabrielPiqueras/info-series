@@ -2,5 +2,5 @@
     footer.footer
         .container
             .content.has-text-centered
-                p Hecho con cariño por @hakistorm
+                p By Gabriel Piqueras
 </template>

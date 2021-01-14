@@ -1,5 +1,5 @@
 {
-  "name": "platzi-music",
+  "name": "info-series",
   "version": "1.0.0",
   "private": true,
   "description": "App curso de Vue.js",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bulma": "^0.9.1",
+    "serve": "^11.3.2",
     "trae": "^1.4.2",
     "vue": "^2.5.11",
     "vue-router": "^3.4.9"

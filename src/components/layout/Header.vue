@@ -5,7 +5,7 @@
                 .container
                     .nav-left
                         .nav-item
-                            strong Platzi Music
+                            strong Info Series
                             
                     //- Menu
                     nav.navbar(role='navigation' aria-label='main navigation')
@@ -21,8 +21,8 @@
         //- Portada (Hero)
         .hero-body
             .container.has-text-centered
-                h1.title Platzi Music
-                h2.subtitle Canciones que están Vue-nisimas!
+                h1.title Info Series
+                h2.subtitle Búsqueda e información sobre producciones.
                 //- Reproductor
                 pm-player
  

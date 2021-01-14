@@ -15,7 +15,7 @@
           a.button.is-info.is-large.mt-4(v-on:click="search") Buscar
           a.button.is-danger.is-large.mt-4.ml-3(v-on:click="limpiar") &times;
           p 
-            small {{ searchMessage }}
+            small(v-if="Object.keys(series).length != 0") {{ searchMessage }}
             
         .container.results(v-show="!isLoading")
           .columns.is-multiline

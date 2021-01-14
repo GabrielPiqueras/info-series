@@ -1,6 +1,6 @@
-# platzi-music
+# info-series
 
-> App curso de Vue.js
+> App que muestra información relevante sobre series y producciones.
 
 ## Build Setup
 

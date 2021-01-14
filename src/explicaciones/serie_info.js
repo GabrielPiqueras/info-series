@@ -1,20 +1,20 @@
-/* Servicio que interactuará con PlatziMusic, buscará las canciones y obtendrá información sobre ellas. */
+/* Servicio que interactuará con InfoSeries, buscará las canciones y obtendrá información sobre ellas. */
 
-/* Importo el servicio de PlatziMusic */
-import platziMusicService from './platzi-music.js'
+/* Importo el servicio de InfoSeries */
+import infoSeriesService from './info-series.js'
 
 const serieService = {}
 
-/* Para que serieService pueda interactuar con la API de PlatziMusic, creamos este método que buscará las canciones.
+/* Para que serieService pueda interactuar con la API de InfoSeries, creamos este método que buscará las canciones.
 Recibirá por parámetro 'q' que es un estándar para referirnos a 'query' en búsquedas */
 serieService.search = function(q) {
     /* Para obtener distintos tipos de cosas, en este caso serán canciones */
     const type = 'serie';
 
-    /* Como platziMusicService es una instancia de la librería 'trae', podemos usar sus métodos, en este caso get() para obtener los resultados mediante una petición HTTP */
+    /* Como infoSeriesService es una instancia de la librería 'trae', podemos usar sus métodos, en este caso get() para obtener los resultados mediante una petición HTTP */
     /* PARÁMETRO 1: get() recibe la url a buscar, en nuestro caso como ya tenemos la API en baseUrl solo debemos poner las partes específicas, como '/search'
        PARÁMETRO 2: Será un objeto que a su vez tendrá otro objeto llamado params, que serán parámetros que viajan dentro de la url del método get() HTTP */
-    platziMusicService.get('/search', {
+    infoSeriesService.get('/search', {
         /* Cuando la clave y el valor son iguales podríamos abreviarlo así -> params: { q,type } */
         params: { q: q, type: type }
     })
