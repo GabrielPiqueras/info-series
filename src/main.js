@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from '@/App.vue'
+require('@/assets/scss/main.scss');
 
 // Router
 import VueRouter from 'vue-router'
@@ -12,7 +13,7 @@ import EventBus from '@/plugins/event-bus.js'
 import MsToMm from '@/filters/ms-to-mm.js'
 import ConvertDolarEuros from '@/filters/dolar-euros.js'
 
-// Directivas
+// Directivas personalizadas
 import blur from '@/directives/blur.js'
 
 Vue.use(EventBus)

@@ -15,7 +15,9 @@ import PmFooter from '@/components/layout/Footer.vue'
 export default {
   name: 'app',
 
-  components: { PmHeader, PmFooter }
+  components: {
+    PmHeader, PmFooter
+  }
 }
 </script>
 

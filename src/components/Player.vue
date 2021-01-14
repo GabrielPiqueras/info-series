@@ -22,8 +22,8 @@ export default {
         }
     },
     created() {
-        this.$bus.$on('set-anime', (anime) => {
-            this.serie = anime;
+        this.$bus.$on('set-serie', (serie) => {
+            this.serie = serie;
         })
     }
 }

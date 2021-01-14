@@ -1,4 +1,5 @@
 <template lang="pug">
+
     .card(v-if="serie")
         .tipo(v-if="serie.type == 'TV'") Anime
         .tipo(v-else-if="serie.type == 'Movie'") Película
@@ -19,34 +20,22 @@
                     nav.level
                         .level-left
                             button.level-item.button.is-primary
-                                span.icon.is-small(v-on:click="selectAnime") ▶
-                            button.level-item.button.is-warning(v-on:click="goToAnime(serie.mal_id)") Ver más
+                                span.icon.is-small(v-on:click="selectSerie") ▶
+                            button.level-item.button.is-warning(v-on:click="goToSerie(serie.mal_id)") Ver más
                             
 </template>
 
 <script>
 
+import serieMixin from '@/mixins/serie.js'
+
 export default {
-    data() {
-        return {
-            precio: 2
-        }
-    }, 
+    mixins: [ serieMixin ],
     props: {
         serie: { type: Object, required: true }
     },
     methods: {
-        selectAnime() {
-            if (this.serie.rated === 'R') { return }
-            
-            this.$emit('select', this.serie);
-            
-            /* Emitimos el evento 'set-anime' desde la nueva instancia de Vue dentro de $bus */
-            /* Estaremos emitiendo con $emit un evento a nuestro plugin 'EventBus',
-               El cual recibiremos con $on en el otro componente */
-            this.$bus.$emit('set-anime', this.serie)
-        },
-        goToAnime(id) {
+        goToSerie(id) {
             if (this.serie.rated === 'R') { return }
 
             this.$router.push({ name: 'serie', params: { id } })

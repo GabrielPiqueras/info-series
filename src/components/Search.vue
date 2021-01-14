@@ -6,13 +6,14 @@
       p(slot="notif") No se encontraron resultados
 
     section.section
-      pm-loader(v-show="isLoading")
+      transition(name="move")
+        pm-loader(v-if="searchQuery.length >= 3" v-show="isLoading")
 
       nav.nav.has-shadow
         .container
           input.input.is-large(type="text" placeholder="Buscar series" ref="buscador" v-model="searchQuery" @keyup.enter="search")
           a.button.is-info.is-large.mt-4(v-on:click="search") Buscar
-          a.button.is-danger.is-large.mt-4.ml-3 &times;
+          a.button.is-danger.is-large.mt-4.ml-3(v-on:click="limpiar") &times;
           p 
             small {{ searchMessage }}
             
@@ -22,7 +23,7 @@
               pm-serie(
                 v-blur="s.rated"
                 v-bind:serie="s"
-                v-bind:class= "{ 'is-active': t === selectedSerie }"
+                v-bind:class= "{ 'is-active': s === selectedSerie }"
                 v-on:select="setSelectedSerie"
               )
               
@@ -92,12 +93,16 @@ export default {
 
       // Ejecuto la busqueda llamando al método del servicio pasando el término y parámetros
       serieService.search(this.searchQuery, this.parametros).then(respuesta => {
-          this.series = respuesta;
-
-      // Oculto el loader
-          this.isLoading = false;
+        this.series = respuesta;
+  
+        // Oculto el loader
+        this.isLoading = false;
       })
-    
+    },
+    limpiar() {
+      this.searchQuery = ''
+      this.series = []
+      this.$refs.buscador.focus()
     },
     setSelectedSerie(serie) {
       this.selectedSerie = serie;
@@ -120,20 +125,20 @@ body {
   border: 3px solid green;
 }
 
-@media screen and (max-width: 480px) {
+// @media screen and (max-width: 480px) {
 
-}
+// }
 
-@media screen and (max-width: 768px) {
+// @media screen and (max-width: 768px) {
 
-}
+// }
 
-@media screen and (max-width: 1024px) {
+// @media screen and (max-width: 1024px) {
   
-}
+// }
 
-@media screen and (max-width: 1407px) {
+// @media screen and (max-width: 1407px) {
   
-}
+// }
 
 </style>
