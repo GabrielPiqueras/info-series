@@ -16,6 +16,9 @@ import ConvertDolarEuros from '@/filters/dolar-euros.js'
 // Directivas personalizadas
 import blur from '@/directives/blur.js'
 
+// i18n
+import i18n from '@/i18n.js'
+
 Vue.use(EventBus)
 Vue.use(VueRouter)
 Vue.use(MsToMm)
@@ -30,5 +33,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   render: h => h(App),
-  router
+  router,
+  i18n
 })

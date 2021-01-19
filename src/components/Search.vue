@@ -12,7 +12,7 @@
       nav.nav.has-shadow
         .container
           input.input.is-large(type="text" placeholder="Buscar series" ref="buscador" v-model="searchQuery" @keyup.enter="search")
-          a.button.is-info.is-large.mt-4(v-on:click="search") Buscar
+          a.button.is-info.is-large.mt-4(v-on:click="search") {{ $t('buttonSearch' )}}
           a.button.is-danger.is-large.mt-4.ml-3(v-on:click="limpiar") &times;
           p 
             small(v-if="Object.keys(series).length != 0") {{ searchMessage }}
