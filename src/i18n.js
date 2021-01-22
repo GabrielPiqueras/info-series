@@ -7,6 +7,8 @@ const messages = {
     en: {
         search: 'Search',
         about: 'About',
+        login: 'Login',
+        register: 'Register',
         description: 'Search and information about productions.',
 
         buttonSearch: 'Search',
@@ -15,6 +17,8 @@ const messages = {
     es: {
         search: 'Búsqueda',
         about: 'Nosotros',
+        login: 'Iniciar sesión',
+        register: 'Registro',
         description: 'Búsqueda e información sobre producciones.',
 
         buttonSearch: 'Buscar',

@@ -11,6 +11,7 @@
     "start": "serve --single"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bulma": "^0.9.1",
     "serve": "^11.3.2",
     "trae": "^1.4.2",

@@ -20,6 +20,8 @@
                             //- Idiomas
                             router-link.navbar-item(to="/") {{ $t('search') }}
                             router-link.navbar-item(to="about") {{ $t('about') }}
+                            router-link.navbar-item(to="login") {{ $t('login') }}
+                            router-link.navbar-item(to="registro") {{ $t('register') }}
 
                             .select
                                 select(ref="idioma" @change="selectLang()")

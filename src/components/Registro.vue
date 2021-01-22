@@ -2,6 +2,14 @@
   <div class="register">
     <h1 class="title">Sign Up</h1>
     <form action class="form" @submit.prevent="register">
+      <label class="form-label" for="#nombre">Nombre:</label>
+      <input
+        v-model="nombre"
+        class="form-input"
+        type="text"
+        id="nombre"
+        placeholder="Nombre"
+      >
       <label class="form-label" for="#email">Email:</label>
       <input
         v-model="email"
@@ -11,39 +19,117 @@
         required
         placeholder="Email"
       >
-      <label class="form-label" for="#password">Password:</label>
+      <label class="form-label" for="#pass">pass:</label>
       <input
-        v-model="password"
+        v-model="pass"
         class="form-input"
-        type="password"
-        id="password"
-        placeholder="Password"
+        type="pass"
+        id="pass"
+        placeholder="pass"
       >
-      <label class="form-label" for="#password-repeat">Repite la contraeña:</label>
+      <label class="form-label" for="#pass-repeat">Repite la contraeña:</label>
       <input
-        v-model="passwordRepeat"
+        v-model="passRepeat"
         class="form-input"
-        type="password"
-        id="password-repeat"
-        placeholder="Password"
+        type="pass"
+        id="pass-repeat"
+        placeholder="pass"
+      >
+      <label class="form-label" for="#edad">Edad:</label>
+      <input
+        v-model="edad"
+        class="form-input"
+        type="number"
+        id="edad"
+        placeholder="Edad"
       >
       <input class="form-submit" type="submit" value="Sign Up">
+      <p ref="resultado"></p>
     </form>
+
+    <button v-on:click="getUsers">Obtener todos los usuarios</button>
+    <button v-on:click="getUser">Obtener un usuario</button>
+    <button v-on:click="editUser">Editar un usuario</button>
+    <button v-on:click="deleteUser">Borrar un usuario</button>
   </div>
 </template>
 
 <script>
+
+import userService from '@/services/users.js'
+
 export default {
+
   data: () => ({
-    email: "",
-    password: "",
-    passwordRepeat: ""
+    nombre: 'Gabriel',
+    email: 'eve.holt@reqres.in',
+    pass: 'pistol',
+    passRepeat: 'pruebajajaxd',
+    edad: 21,
+    error: false
   }),
   methods: {
+    // registro() {
+    //   alert('Llega al registro')
+
+    //   auth.registrar(usuario).then((respuesta) => {
+    //       //this.$refs.resultado.innerHTML = 'Usuario añadido con éxito.'
+    //       alert(respuesta)
+    //   })
+    // },
+    // Funciona
+    getUsers() {
+      userService.getUsers().then(respuesta => console.log(respuesta))
+    },
+    // Funciona
+    getUser() {
+      alert('Método getUser()')
+      userService.getUser(91).then(respuesta => console.log(respuesta))
+    },
+    // Funciona
     register() {
-      console.log(this.email);
-      console.log(this.password);
-      console.log(this.passwordRepeat);
+        alert('Ejecutando método register() del componente')
+
+        const objUsuario = {
+          "usuario": {
+            "nombre": this.nombre,
+            "email": this.email,
+            "pass": this.pass,
+            "passRepeat": this.passRepeat,
+            "edad": this.edad
+          }
+        }
+
+        userService.register(this.nombre, this.email, this.pass, this.edad).then(response => {
+          alert('LLEGA LA RESPUESTA')
+          // alert(response)
+          // this.$refs.resultado.innerHTML = 'Registro completado con éxito.'
+          console.log(response);
+        })
+    },
+    // Funciona
+    editUser() {
+      alert('Ejecutando método editUser() del componente')
+
+      const objUsuario = {
+        "usuario": {
+          "nombre": this.nombre,
+          "email": this.email,
+          "pass": this.pass,
+          "passRepeat": this.passRepeat,
+          "edad": this.edad
+        }
+      }   
+      
+      userService.editUser('Maite','aasdasd@gmail.com','mipassxd', 56)
+        .then(respuesta => console.log(respuesta))
+    },
+    // Funciona
+    deleteUser() {
+      alert('Método deleteUser()')
+
+      userService.deleteUser(81)
+        .then(respuesta => console.log(respuesta))
     }
   }
 };
