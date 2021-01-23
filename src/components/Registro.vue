@@ -4,7 +4,7 @@
     <form action class="form" @submit.prevent="register">
       <label class="form-label" for="#nombre">Nombre:</label>
       <input
-        v-model="nombre"
+        v-model="objUser.nombre"
         class="form-input"
         type="text"
         id="nombre"
@@ -12,7 +12,7 @@
       >
       <label class="form-label" for="#email">Email:</label>
       <input
-        v-model="email"
+        v-model="objUser.email"
         class="form-input"
         type="email"
         id="email"
@@ -21,23 +21,23 @@
       >
       <label class="form-label" for="#pass">pass:</label>
       <input
-        v-model="pass"
+        v-model="objUser.pass"
         class="form-input"
-        type="pass"
+        type="password"
         id="pass"
         placeholder="pass"
       >
       <label class="form-label" for="#pass-repeat">Repite la contraeña:</label>
       <input
-        v-model="passRepeat"
+        v-model="objUser.passRepeat"
         class="form-input"
-        type="pass"
+        type="password"
         id="pass-repeat"
         placeholder="pass"
       >
       <label class="form-label" for="#edad">Edad:</label>
       <input
-        v-model="edad"
+        v-model="objUser.edad"
         class="form-input"
         type="number"
         id="edad"
@@ -61,22 +61,18 @@ import userService from '@/services/users.js'
 export default {
 
   data: () => ({
-    nombre: 'Gabriel',
-    email: 'eve.holt@reqres.in',
-    pass: 'pistol',
-    passRepeat: 'pruebajajaxd',
-    edad: 21,
+    // Objeto que recoge los datos del registro
+    objUser: {
+      nombre: '',
+      email: '',
+      pass: '',
+      passRepeat: '',
+      edad: null,
+    },
     error: false
   }),
   methods: {
-    // registro() {
-    //   alert('Llega al registro')
 
-    //   auth.registrar(usuario).then((respuesta) => {
-    //       //this.$refs.resultado.innerHTML = 'Usuario añadido con éxito.'
-    //       alert(respuesta)
-    //   })
-    // },
     // Funciona
     getUsers() {
       userService.getUsers().then(respuesta => console.log(respuesta))
@@ -90,45 +86,34 @@ export default {
     register() {
         alert('Ejecutando método register() del componente')
 
-        const objUsuario = {
-          "usuario": {
-            "nombre": this.nombre,
-            "email": this.email,
-            "pass": this.pass,
-            "passRepeat": this.passRepeat,
-            "edad": this.edad
-          }
-        }
-
-        userService.register(this.nombre, this.email, this.pass, this.edad).then(response => {
+        userService.register(this.objUser).then(response => {
           alert('LLEGA LA RESPUESTA')
           // alert(response)
-          // this.$refs.resultado.innerHTML = 'Registro completado con éxito.'
+          this.$refs.resultado.innerHTML = 'Registro completado con éxito.'
           console.log(response);
         })
     },
     // Funciona
     editUser() {
       alert('Ejecutando método editUser() del componente')
-
-      const objUsuario = {
-        "usuario": {
-          "nombre": this.nombre,
-          "email": this.email,
-          "pass": this.pass,
-          "passRepeat": this.passRepeat,
-          "edad": this.edad
-        }
-      }   
       
-      userService.editUser('Maite','aasdasd@gmail.com','mipassxd', 56)
+      const id = 11;
+      const objUserEdit = {
+        nombre: 'Laura',
+        email: 'laura@gmail.com',
+        pass: 'oso1235',
+        edad: 42
+      }
+
+      userService.editUser(id, objUserEdit)
         .then(respuesta => console.log(respuesta))
     },
     // Funciona
     deleteUser() {
       alert('Método deleteUser()')
 
-      userService.deleteUser(81)
+      const id = 31
+      userService.deleteUser(id)
         .then(respuesta => console.log(respuesta))
     }
   }

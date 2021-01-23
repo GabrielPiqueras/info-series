@@ -17,25 +17,18 @@ userService.getUser = function(id) {
 }
 
 // Registro de usuarios
-userService.register = function(id, nombre, email, pass, edad) {
+userService.register = function(objUser) {
 
   alert('Llega al método register')
 
-  const objUsuario = {
-    nombre, email, pass, edad
-  }
-
-  return axios.post(ENDPOINT_PATH + "/add", objUsuario);
+  return axios.post(ENDPOINT_PATH + "/add", objUser);
 }
 
 // Editar un usuario
-userService.editUser = function(nombre, email, pass, edad) {
+userService.editUser = function(id, objUserEdit) {
   alert('Llega al método editUser()')
 
-  const editUsuario = {
-    nombre, email, pass, edad
-  }
-  return axios.put(ENDPOINT_PATH + "/editar/91", editUsuario);
+  return axios.put(ENDPOINT_PATH + `/editar/${id}`, objUserEdit);
 }
 
 // Eliminar un usuario
